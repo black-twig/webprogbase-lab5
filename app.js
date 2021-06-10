@@ -13,6 +13,7 @@ const UserRepository = require('./repositories/userRepository');
 const userRepository = new UserRepository('data/users.json');
 const MuseumRepository = require('./repositories/museumRepository');
 const museumRepository = new MuseumRepository('data/museums.json');
+const config = require('./config');
 
 //
 
@@ -74,6 +75,6 @@ app.get('/users/:id', function (req, res) {
 
 expressSwagger(options);
 
-app.listen(3000, function() {
+app.listen(config.app.port, function() {
     console.log('Server is ready');
 });
