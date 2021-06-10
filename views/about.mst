@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+  <div class="about">
+    <h1>About</h1>
+    <p><b>Name</b>: BlackTwig </p>
+    <p><b>E-mail</b>: some.email@gmail.com</p>
+    <p><b>About</b>: something</p>
+  </div>
+  {{> partials/footer}}
+</body>
+
+</html>

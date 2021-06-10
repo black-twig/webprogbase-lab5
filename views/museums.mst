@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+          
+
+<div class="page-container">
+   <div class="content-wrap">
+    <div class="newMuseumRef">
+        <a href="/museums/newm">Add new museum</a>
+    </div>
+
+    <div class="museums">
+        <h1>Museums:</h1>
+
+        <table class="museumsTable">
+            <tr>
+            {{#museums}}
+            <tr>
+                <td><a href="/museums/{{_id}}">{{name}}</a></td>
+                <td>{{country}}</td>
+            </tr>
+            {{/museums}}
+            </tr>
+        </table>
+
+        {{^museums}}
+            No results
+        {{/museums}}
+   </div>
+
+    <form method="get" action="/museums">
+        <div class="searchMuseumForm">
+            <p class="searchMuseumText"><b>SEARCH MUSEUM</b></p>
+            <hr class="searchMuseumLine" />
+            {{#pages}}
+                {{#namePage}}
+                    <input class="searchMuseumInput" type="text" name="name" placeholder="Enter museum name" value={{namePage}}>
+                {{/namePage}}
+                {{^namePage}}
+                    <input class="searchMuseumInput" type="text" name="name" placeholder="Enter museum name">
+                {{/namePage}}
+                <button class="searchMuseumButton">Find</button>
+            {{/pages}}
+        </div>
+    </form>
+    
+    <form method="get" action="/museums">
+        <div class="pagesForm">
+            <p class="searchMuseumText"><b>PAGES</b></p>
+            <hr class="searchMuseumLine" />
+            {{#pages}}
+                <input class="currentPage" type="number" name="page" min="1" max="{{pagesNumber}}" value={{currentPage}}>
+                {{#namePage}}
+                    <input type="hidden" name="name" value={{namePage}}>
+                {{/namePage}}
+                    <div class="pagesText">
+                        &nbsp; of &nbsp; {{pagesNumber}} &nbsp;
+                    </div>
+                <div class="pagesPrevPage">
+                    {{#prevPage}}
+                        {{#namePage}}
+                            <a href="/museums?page={{prevPage}}&name={{namePage}}">Previous</a>
+                        {{/namePage}}
+                        {{^namePage}}
+                            <a href="/museums?page={{prevPage}}">Previous</a>
+                        {{/namePage}}
+                    {{/prevPage}}
+                </div>
+                <button class="pagesFindButton">Find</button>
+                <div class="pagesNextPage">
+                    {{#nextPage}}
+                        {{#namePage}}
+                            <a href="/museums?page={{nextPage}}&name={{namePage}}">Next</a>
+                        {{/namePage}}
+                        {{^namePage}}
+                            <a href="/museums?page={{nextPage}}">Next</a>
+                        {{/namePage}}
+                    {{/nextPage}}
+                </div>
+            {{/pages}}
+        </div>
+    </form>
+
+
+      
+</div>
+    {{> partials/footer}}
+    </div>
+</body>
+
+</html>

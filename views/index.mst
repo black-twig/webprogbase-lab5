@@ -1,0 +1,21 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+
+  <img class="museumsMainImage" src="/images/IndexPhoto.jpg"/>
+  <div>
+    <p>There are a lot art museums worth visiting. </p>
+    <p>On this website you will find a list of different interesting art museums.</p>
+    <p>Hope you can find one to your liking!</p>
+  </div>
+    {{> partials/footer}}
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+<div class="page-container">
+   <div class="content-wrap">
+  {{> partials/header}}
+
+  {{#museum}}
+  <div>
+  <img src="{{imageUrl}}" class="museum_photo" />
+  </div>
+
+  <div class="museum">
+    <p><b>Name</b>: {{name}}</p>
+    <p><b>Country</b>: {{country}}</p>
+    <p><b>Founded</b>: {{founded}}</p>
+    <p><b>Artists presented</b>: {{artistNum}}</p>
+    <p><b>Exhibitions</b>: {{exhibitNum}}</p>
+  </div>
+
+  <form method="POST" action="/museums/del{{_id}}">
+    <input  class="museumDeleteButton" type="submit" value="Delete museum">
+  </form>
+  
+  <div>
+        <a href="/museums/newrw/{{_id}}">Add new review</a>
+    </div>
+
+  {{/museum}}
+
+<div class="reviews">
+        <h1>Reviews:</h1>
+
+        <table class="reviewsTable">
+            <tr>
+            {{#reviews}}
+            <tr>
+                <td>{{user_name}}</td>
+                <td>{{rating}}</td>
+                <td>{{comment}}</td>
+                <td><a href="/museums/editrw/{{_id}}">Edit</a></td>
+                <td><a href="/museums/deleterw/{{_id}}">Delete</a></td>
+            </tr>
+            {{/reviews}}
+            </tr>
+        </table>
+
+        {{^reviews}}
+            No reviews yet.
+        {{/reviews}}
+</div>
+
+</div>
+    {{> partials/footer}}
+    </div>
+</body>
+
+</html>

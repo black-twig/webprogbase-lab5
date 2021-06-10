@@ -1,0 +1,27 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+
+  {{#user}}
+  <img src="/images/user.jpg" class="usr_ava" />
+  <div class="user">
+    <p>
+    <h2>{{fullname}}</h2>
+    </p>
+    <p>({{login}}) {{registeredAt}} </p>
+    <div class="bio">
+      <p> Just a usual user ;) </p>
+    </div>
+  </div>
+
+  {{/user}}
+    {{> partials/footer}}
+</body>
+
+</html>

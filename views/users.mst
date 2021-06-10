@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+
+  <h1 class="usersN">Users:</h1>
+  <table class="users">
+    <tr>
+      <th>Login</th>
+      <th>Fullname</th>
+      <th>Registered</th>
+    </tr>
+    <tr>
+      {{#users}}
+    <tr>
+      <td><a href="/users/{{_id}}">{{login}}</a></td>
+      <td>{{fullname}}</td>
+      <td>{{registeredAt}}</td>
+    </tr>
+    {{/users}}
+    </tr>
+  </table>
+
+    {{> partials/footer}}
+    
+</body>
+
+</html>

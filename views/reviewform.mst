@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+{{> partials/head}}
+
+<body>
+
+  {{> partials/header}}
+    <div>
+    {{#review}}
+        <form method="POST" action="/museums/addreview" enctype="multipart/form-data">
+            <p><h1>{{lblNewOrEdit}} review for museum <p/>{{museum_name}}</h1></p>
+            <input type="hidden" name="museum_id" value = "{{museum_id}}">
+            <input type="hidden" name="_id" value = "{{_id}}">
+            <div><p>User:</p><select class="newMuseumInput" name="user_id" required>
+                {{#users}}
+                <option value="{{_id}}" {{selected}}>{{login}}</option>
+                {{/users}} 
+            </select></div><br>
+            <div><p>Rating:</p><input class="newMuseumInput" type="number" min="1" max="5" name="rating" value="{{rating}}" required></div><br>
+            <div><p>Comment:</p><input class="newMuseumInput" type="text" placeholder="Enter your comments here." 
+                                    rows="50" cols="5" name="comment" value="{{comment}}"></div><br>
+            <input class="newMuseumButton" type="submit" value="Submit">
+        </form>
+    {{/review}}
+    </div>
+
+    {{> partials/footer}}
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+<header>
+    <div class="name">Art Museums List</div>
+
+    <img src="/images/logo.png" class="logo" />
+
+    <nav class="menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/users">Users</a></li>
+        <li><a href="/museums">Museums</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+  </header>
