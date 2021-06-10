@@ -1,7 +1,7 @@
 require('dotenv').config();
 const config = {
     app: {
-      port: process.env.APP_PORT || 3000
+      port: process.env.PORT || 3000
     },
     db: {
       host: process.env.DB_HOST || 'lab4.0pfe1.mongodb.net',
