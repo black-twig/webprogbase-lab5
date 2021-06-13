@@ -1,7 +1,7 @@
 const path = require('path');
 const MuseumRepository = require('../repositories/museumRepository');
 const museumRepository = new MuseumRepository();
-const MediaRepository = require('./../repositories/mediaRepository');
+const MediaRepository = require('../repositories/mediaRepository');
 const mediaRepository = new MediaRepository(path.resolve(__dirname, '../data/media'));
 const Museum = require('../models/museum');
 const ReviewRepository = require('../repositories/reviewRepository');
@@ -57,11 +57,11 @@ module.exports = {
 
     async  addArtMuseum(req, res) {
 
-        const imageUrl = mediaRepository.addMedia(req.files['imageUrl']);
+        const image = await mediaRepository.addMedia(req.files['imageUrl'].data);
 
         //console.log(req.body);
         const new_museum = new Museum(null, req.body.Mname, req.body.country, req.body.founded, 
-             Number(req.body.artistNum), Number(req.body.exhibitNum), imageUrl);
+             Number(req.body.artistNum), Number(req.body.exhibitNum), image.url);
         const newId = await museumRepository.addArtMuseum(new_museum);
         //console.log(newId);
         res.redirect('/museums/' + newId);

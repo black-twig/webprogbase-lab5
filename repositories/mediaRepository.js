@@ -1,54 +1,29 @@
-const fs = require('fs');
-const path = require('path');
-const Media = require('../models/media');
-const { fileFormat } = require('express-swagger-generator/lib/swagger');
+const config = require('../config');
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: config.cloudinary.cloud_name,
+    api_key: config.cloudinary.api_key,
+    api_secret: config.cloudinary.api_secret
+});
 
 class MediaRepository {
 
-    constructor(storage) {
-        this.storage = storage;
-    }
-    addMedia(media) {
+    async addMedia(media) {
 
-        const fileFormat = media.mimetype.split('/')[1];  //media = req.files['imageUrl']
-
-        const nextMediaId = JSON.parse(fs.readFileSync(`${this.storage}/media_id.json`));
-
-        const imageUrl = '/media/m' + nextMediaId.nextId + '.' + fileFormat;
-
-        fs.writeFileSync(path.resolve(__dirname, '../data' + imageUrl), media.data, (err) => {
-            if (err) {
-
-                console.log("Can't load this photo.");
-
-            }
-        });
-
-        //generate and store next id
-        nextMediaId.nextId += 1;
-        fs.writeFileSync(`${this.storage}/media_id.json`, JSON.stringify(nextMediaId, null, 4));
-
-        //
-        return imageUrl;
-    }
-    getMediaById(mediaId) {
-        const dir = `${this.storage}/`;
-        const searchCrit = 'm' + String(mediaId) + '.';
-        let media_dir = null;
-
-        fs.readdirSync(dir).forEach(file => {
-
-            if (fs.lstatSync(path.resolve(dir, file)).isFile()) {
-                if (String(file).startsWith(searchCrit)) {
-                    console.log(dir + file);
-                    media_dir = dir + file;
-                }
-            }
-        });
-
-        if (media_dir !== null)
-            return new Media(media_dir);
-        return null;
+        return new Promise((resolve, reject) => {
+            cloudinary.v2.uploader
+                .upload_stream(
+                  { resource_type: 'raw' }, 
+                  (err, result) => {
+                    if (err) {
+                      reject(err);
+                    } else {
+                      resolve(result);
+                    }
+                  })
+                .end(media);
+          });
+        
     }
 }
 
