@@ -9,7 +9,5 @@ router.use('/museums', museumsRouter);
 const reviewsRouter = require('./reviewsRouter');
 router.use('/reviews', reviewsRouter);
 
-const mediaRouter = require('./mediaRouter');
-router.use('/media', mediaRouter);
 
 module.exports = router;
