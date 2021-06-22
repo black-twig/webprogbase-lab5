@@ -1,0 +1,91 @@
+#pagging_container{
+    width:70%;
+    position: absolute;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+div.pager {
+    padding: 20px 0;
+}
+
+a.pagerlink {
+    padding: 5px 10px;
+    color: rgb(47, 28, 70);
+    font-size: 26px;
+    font-weight: bold;
+}
+a.pagerlink:hover {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: rgb(139, 92, 197);
+    font-weight: bold;
+}
+
+a.pagerbutton {
+    padding: 5px 10px;
+    border: 2px solid;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+a.pagerbutton+a.pagerbutton {
+    margin-left: 5px;
+}
+
+a.pagerbutton.default {
+    border-color: rgb(47, 28, 70);
+    background-color: #c7e7ec;
+    color: rgb(47, 28, 70);
+}
+
+a.pagerbutton.default:hover {
+    background-color: #e0efff;
+}
+
+a.pagerbutton.selected {
+    border-color:rgb(47, 28, 70);
+    background-color: rgb(231, 210, 243);
+    color:rgb(47, 28, 70);
+    pointer-events: none;
+    cursor: default;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem !important;
+}
+
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.5;
+}
+
+.close:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.close:not(:disabled):not(.disabled):focus,
+.close:not(:disabled):not(.disabled):hover {
+    opacity: 0.75;
+}
+
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}

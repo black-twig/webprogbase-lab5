@@ -1,0 +1,12 @@
+{{#notification}}
+ <!-- <div class="toast" id="toast"> -->
+    <div class="toast-header">
+        <strong class="mr-auto text-primary">{{Title}}</strong>
+        <small class="text-muted">{{Created}}</small>
+        <button type="button" class="ml-2 mb-1 close" onclick="closeNotification('toast{{Id}}')">&times;</button>
+    </div>
+    <div class="toast-body">
+       <a target="_blank" href="/museums/?{{Id}}">{{Text}}</a>
+    </div>
+<!-- </div> -->
+{{/notification}}

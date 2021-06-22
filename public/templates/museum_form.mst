@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
-
-{{> partials/head}}
-
-<body>
-
-  {{> partials/header}}
     <div class="newMuseumForm">
-        <form method="POST" action="/museums" enctype="multipart/form-data">
+        <form method="POST" id="museum_form" name="museum_form" onsubmit="addNewMuseum();return false">
+        
             <p><h1>New museum</h1></p>
             
             <div><p>Name:</p><input class="newMuseumInput" type="text" name="Mname" required></div><br>
@@ -16,12 +9,11 @@
             <div><p>Exhibit number:</p><input class="newMuseumInput" type="number" name="exhibitNum" required></div><br>
             <div><p>Founded:</p><input class="newMuseumInput"  type="date" name="founded" required></div><br>
             <div><p>Museum photo(file):</p><input class="newMuseumFile" type="file" name="imageUrl" accept=".png, .jpg, .jpeg" required></div><br>
-            <input class="newMuseumButton" type="submit" value="Submit">
+            <button class="newMuseumButton" id="newMuseumButton" type="submit" >Add</button>
         </form>
+
+       <div id="addHistory">
+       <ul id="addHistoryItems">
+        </ul>
+       </div> 
     </div>
-
-    {{> partials/footer}}
-
-</body>
-
-</html>

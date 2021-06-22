@@ -1,0 +1,23 @@
+ 
+      <div class="newMuseumRef">
+       <button class="newMuseumButton" id="newMuseumButton" onclick="getMuseumForm()">Add museum</button>
+      </div>
+ <div class="museums">
+        <h1>Museums:</h1>
+
+
+        <table class="museumsTable">
+            <tr>
+            {{#museums}}
+            <tr>
+                <td><a href="#" onclick="gotoMuseumInfo(event, '{{_id}}')">{{name}}</a></td>
+                <td>{{country}}</td>
+            </tr>
+            {{/museums}}
+            </tr>
+        </table>
+        <div id="pagging_container"></div>
+        {{^museums}}
+            No results
+        {{/museums}}
+</div>

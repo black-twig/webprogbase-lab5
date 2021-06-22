@@ -1,0 +1,51 @@
+{{#museum}}
+<div>
+  <img src="{{imageUrl}}" class="museum_photo" />
+</div>
+
+<div class="museum">
+  <p><b>Name</b>: {{name}}</p>
+  <p><b>Country</b>: {{country}}</p>
+  <p><b>Founded</b>: {{founded}}</p>
+  <p><b>Artists presented</b>: {{artistNum}}</p>
+  <p><b>Exhibitions</b>: {{exhibitNum}}</p>
+</div>
+<span>
+  <button class="btn" onclick="returnToMuseumsList(event)"><i class="fa fa-angle-double-left"></i> Back to museum
+    list</button>
+</span>
+<span>
+  <button class="btn" onclick="document.getElementById('deleteModal').style.display='block'"><i class="fa fa-trash"></i>
+    Delete museum</button>
+</span>
+
+<div id="deleteModal" class="modal">
+  <div class="container">
+    <div id="deletePrompt">
+    <span id='closeModalBtn' onclick="document.getElementById('deleteModal').style.display='none'" class="close" title="Cancel">×</span>
+    <br>
+    <h1>DELETE MUSEUM</h1>
+      <p>Are you sure you want to delete this museum?</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('deleteModal').style.display='none'"
+          class="cancelbtn" id="cancelBtn">Cancel</button>
+        <button type="button" onclick="deleteMuseum(event, '{{_id}}');document.getElementById('deletePrompt').style.display='none'"
+          class="deletebtn" id="deleteBtn">Delete</button>
+      </div>
+    </div>
+
+    <div id="deleteResult">
+    <p>
+    <div id="deleteResultText"></div>
+    </p>
+    <button class="btn" onclick="returnToMuseumsList(event)">
+      <p><i class="fa fa-angle-double-left"></i> Back to museum list</p>
+    </button>
+    </div>
+
+  </div>
+</div>
+
+
+{{/museum}}

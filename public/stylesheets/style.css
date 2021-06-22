@@ -177,11 +177,6 @@ header {
 }
 
 .newMuseumRef {
-    border: 5px solid rgb(47, 28, 70);
-    background: #c7e7ec;
-    border-radius: 13px;
-    width: 13%;
-    padding: 10px;
     margin-top: 1.7%;
     margin-right: 3%;
     float: right;
@@ -228,7 +223,8 @@ header {
     color: rgb(47, 28, 70);
     border: 2px solid rgb(47, 28, 70);
     border-radius: 4px;
-    padding: 5px 25px;
+    width: 120px;
+    padding: 5px 10px;
 }
 
 .searchMuseumButton:hover {
@@ -322,8 +318,12 @@ input[type=number] {
 .newMuseumButton {
     background-color: #c7e7ec;
     color: rgb(47, 28, 70);
-    border: 2px solid rgb(47, 28, 70);
-    border-radius: 4px;
+    border: 3px solid rgb(47, 28, 70);
+    border-radius: 7px;
+    font-size: 27px;
+    margin-top: 1%;
+    width: 230px;
+    height: 50px;
     padding: 5px 25px;
 }
 
@@ -363,10 +363,48 @@ footer {
     background-image: url(/images/topImage.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     margin-top: 50px;
     line-height: 50px;
+    border-radius: 4px;
     height: 50px;
     width: 100%;
 }
+
+ /* Style buttons */
+ .btn {
+    font-size: 25px;
+    background-color: #c7e7ec;
+    color: rgb(47, 28, 70);
+    border: 2px solid rgb(47, 28, 70);
+    border-radius: 4px;
+    padding: 7px 25px;
+    margin-top: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn:hover {
+    background-color: rgb(208, 182, 243);
+  }
+
+
+  .history {
+    list-style: none;
+    background-color: #c7e7ec;
+    color: rgb(47, 28, 70);
+    height: 0;
+    border:none;
+    border-radius: 10px;
+    line-height: 2em;
+    padding: 0 0.5em;
+    overflow: hidden;
+    width: 50%;
+    font-size: 27px;
+  }
+  
+  .history.show {
+    height: 60px;
+    margin: 2px 0;
+  }

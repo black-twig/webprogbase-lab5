@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>User details</title>
+
+    <script src="/javascripts/users.js"></script>
+
+    <script type="text/javascript">
+        function loadUser() {
+            console.log("window.location.search",window.location.search.substring(1));
+            GetUser(window.location.search.substring(1));
+        }
+    </script>
+</head>
+
+
+<body onload="loadUser()">
+
+    <header>
+        <div class="name">Art Museums User Info</div>
+
+        <img src="/images/logo.png" class="logo" />
+
+        <nav class="menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/users">Users</a></li>
+                <li><a href="/museums">Museums</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <img src="/images/user.jpg" class="usr_ava" />
+    <div class="user">
+      <p>
+      <h2><div id="user_fullname"></div></h2>
+      </p>
+      <p>     <div id="user_login"></div>
+            <p>
+              <div id="user_registeredAt"></div>
+            </p>
+      </p>
+      <div class="bio">
+        <p> Just a usual user ;) </p>
+      </div>
+    </div>
+        </p>
+        <div class="toast-container" id="toasts"></div>
+        <footer>
+            <div class="footer">-Lab5-</div>
+        </footer>
+</body>
+
+</html>

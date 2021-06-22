@@ -4,75 +4,90 @@ const museumRepository = new MuseumRepository();
 const MediaRepository = require('../repositories/mediaRepository');
 const mediaRepository = new MediaRepository(path.resolve(__dirname, '../data/media'));
 const Museum = require('../models/museum');
-const ReviewRepository = require('../repositories/reviewRepository');
-const reviewRepository = new ReviewRepository();
 
 module.exports = {
+    async getMuseumsListPage(req, res) {
+        try {
+            res.status(200).render('museums',{});
+        } catch (err) {
+            console.log(err.message);
+            res.sendStatus(500);
+        }
+    },
     async getArtMuseums(req, res) {
         try {
             let page = req.query.page;
             let name = req.query.name;
-            const page_size = 10;
+            let sort = req.query.sort;
+            const page_size = 7;
 
             if (!page) page = 1;
             else page = Number(page);
 
-            let result = await museumRepository.getMuseumsPaginated(Number(page), page_size, name);
-            let museums = result.museums_res;
-            //console.log(museums);
-            let pagesNumber = Number(result.totalPages);
+            let result = await museumRepository.getMuseumsPaginated(Number(page), page_size, name, sort);
 
-            let pages = { currentPage: Number(result.currentPage) };
 
-            if (page !== 1) pages.prevPage = page - 1;
-            if (page !== pagesNumber) pages.nextPage = page + 1;
-            if (name) pages.namePage = name;
-
-            res.status(200).render('museums', { museums: museums, pagesNumber: pagesNumber, pages: pages});
-
+            res.send(result);
+            res.end();
         } catch (err) {
 
             console.log(err.message);
-            res.status(500).send({ museums: null, message: 'Server error.' });
-
+            res.sendStatus(500);
         }
     },
-   
+
     async getArtMuseumById(req, res) {
-        //console.log("GET ArtMuseumById"+req.params._id);
-
         const museum = await museumRepository.getArtMuseumById(req.params._id);
-
         if (museum) {
-            const reviews = await reviewRepository.getRewiewsByMuseumId(req.params._id);
-            res.status(200).render('museum', { museum: museum, reviews: reviews});
+            res.send(museum);
+            res.end();
         }
         else {
-
-            res.status(404).send({ museum: null, message: "Museum id is incorrect." });
-
+            res.sendStatus(404);
         }
     },
-   
 
-    async  addArtMuseum(req, res) {
+
+    async addArtMuseum(req, res) {
 
         const image = await mediaRepository.addMedia(req.files['imageUrl'].data);
-
+        let datenow = new Date().toISOString();
+        //let dateStr = dateNow.getDate() +'/'+(dateNow.getMonth()+1)+'/'+dateNow.getFullYear();
+        console.log(datenow);
         //console.log(req.body);
-        const new_museum = new Museum(null, req.body.Mname, req.body.country, req.body.founded, 
-             Number(req.body.artistNum), Number(req.body.exhibitNum), image.url);
+        const new_museum = new Museum(null, req.body.Mname, req.body.country, req.body.founded,
+            Number(req.body.artistNum), Number(req.body.exhibitNum), image.url, datenow);
         const newId = await museumRepository.addArtMuseum(new_museum);
         //console.log(newId);
-        res.redirect('/museums/' + newId);
+        new_museum._id = newId;
+        if (new_museum)
+            {
+                wsServer.notifyAll("New Museum", new_museum.name, new_museum._id);
+                res.send(new_museum);
+                res.end();
+            }
+            else
+                res.sendStatus(500);
     },
-  
-    async  deleteArtMuseum(req, res) {
+
+    async deleteArtMuseum(req, res) {
         //console.log("DELETE " + req.params._id);
-        const deletedId = await museumRepository.deleteArtMuseum(req.params._id);
-        res.redirect('/museums');
+        if (!req.body)
+            res.sendStatus(400);
+        else {
+            const deletedMuseum = await museumRepository.deleteArtMuseum(req.params._id);
+            console.log(deletedMuseum);
+            if (deletedMuseum)
+            {
+                res.send(deletedMuseum);
+                res.end();
+            }
+            else
+                res.sendStatus(404);
+        }
+        
     },
-    
+
     async updateArtMuseum(req, res) {
         if (!req.body)
             res.sendStatus(400);

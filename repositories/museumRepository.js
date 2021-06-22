@@ -9,25 +9,31 @@ class ArtMuseumRepository {
         this.storage = new MongoStorage();
     }
 
-    async getArtMuseums(name) {
+    async getArtMuseums(name, sort) {
         let findQry = {};
+        
+        let sortQry = { name: 1};
+        if (sort=='addDate')
+            sortQry = { addDate: -1, name: 1};
+            
         if (name)
             findQry = { name: { $regex: ".*" + name + ".*" } };
-        const items = await this.storage.readItems("museums", findQry);
+
+        const items = await this.storage.readItems("museums", findQry, sortQry);
         let artMuseums = [];
         for (const item of Object.values(items)) {
             artMuseums.push(new ArtMuseum(
                 item._id, item.name, item.country,
                 item.founded, item.artistNum,
-                item.exhibitNum, item.imageUrl));
+                item.exhibitNum, item.imageUrl, item.addDate));
         }
         return artMuseums;
     }
 
 
-    async getMuseumsPaginated(page, per_page, name) {
+    async getMuseumsPaginated(page, per_page, name, sort) {
 
-        let museums_res = await this.getArtMuseums(name);
+        let museums_res = await this.getArtMuseums(name,sort);
         // console.log(museums_res);
         // console.log ("------------------------------------------------------");
         let paging = this.paginate(museums_res.length, page, per_page);
@@ -71,7 +77,7 @@ class ArtMuseumRepository {
             return new ArtMuseum(item._id,
                 item.name, item.country,
                 item.founded, item.artistNum,
-                item.exhibitNum, item.imageUrl);
+                item.exhibitNum, item.imageUrl, item.addDate);
         }
         return null;
     }
@@ -103,7 +109,11 @@ class ArtMuseumRepository {
     async deleteArtMuseum(artMuseumid) {
         const deletedItem = await this.storage.deleteItem("museums", artMuseumid);
         if (deletedItem) {
-            return artMuseumid;
+            return new ArtMuseum(deletedItem._id,
+                deletedItem.name, deletedItem.country,
+                deletedItem.founded, deletedItem.artistNum,
+                deletedItem.exhibitNum, deletedItem.imageUrl, 
+                deletedItem.addDate);
         }
         return null;
     }

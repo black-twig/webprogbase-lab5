@@ -1,5 +1,6 @@
 const UserRepository = require('../repositories/userRepository');
 const userRepository = new UserRepository('data/users.json');
+const userProperty = Symbol('user');
 
 module.exports = {
     async getUsers(req, res) {
@@ -14,23 +15,21 @@ module.exports = {
             res.status(500).send({ users: null, message: 'Server error.' });
 
         }
-
     },
     async getUserById(req, res) {
         console.log(req.params._id);
-
-        const user = await userRepository.getUserById(req.params._id);
-
-
-        if (user) {
-
-            res.status(200).render('user', { user: user });
-
-        }
-        else {
-
-            res.status(404).send({ photo: null, message: "User id is incorrect." });
-
+        try {
+            const user = await userRepository.getUserById(req.params.id);
+            if (user) {
+                req[userProperty] = user;
+                res.send(req[userProperty]);
+                res.end();
+            }
+            else
+                res.sendStatus(404);
+        } catch {
+            console.log(err.message);
+            res.sendStatus(500);
         }
     }
 };

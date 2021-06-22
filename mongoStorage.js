@@ -8,16 +8,19 @@ const uri = `mongodb+srv://${login}:${password}@${host}/?writeConcern=majority`;
 
 
 class MongoStorage {
-    
-    async readItems(collectionName, findQry) {
+
+    async readItems(collectionName, findQry, sortQry) {
         //console.log("readItemsCall");
         let result = null;
         const mongoClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
-            
+
             await mongoClient.connect();
             const collection = mongoClient.db(dbName).collection(collectionName);
-            result = await collection.find(findQry).toArray();
+            if (sortQry)
+                result = await collection.find(findQry).sort(sortQry).toArray();
+            else
+                result = await collection.find(findQry).toArray();
             //console.log(result);
         }
         catch (err) {
@@ -37,7 +40,7 @@ class MongoStorage {
             await mongoClient.connect();
             const collection = mongoClient.db(dbName).collection(collectionName);
             const objectId = new ObjectId(id);
-            item = await collection.findOne({_id: objectId});
+            item = await collection.findOne({ _id: objectId });
             //console.log(item);
         }
         catch (err) {
@@ -56,16 +59,16 @@ class MongoStorage {
         try {
             await mongoClient.connect();
             const itemsCollection = mongoClient.db(dbName).collection(collectionName);
-            console.log("writeItem id: "+item._id);
-            if (!item._id){//new entry mode
+            console.log("writeItem id: " + item._id);
+            if (!item._id) {//new entry mode
                 item._id = new ObjectId();
-            
+
                 newItemId = (await itemsCollection.insertOne(item)).insertedId;
             }
-            else{ //update existing doc mode
-                const fltr = {_id : item._id};//define filter to update existing item document
-                const optns = {upsert: true}; //instruct mongodb to create a doc if it's not mached by filter
-                newItemId = (await itemsCollection.replaceOne(fltr,item,optns)).upsertedId;
+            else { //update existing doc mode
+                const fltr = { _id: item._id };//define filter to update existing item document
+                const optns = { upsert: true }; //instruct mongodb to create a doc if it's not mached by filter
+                newItemId = (await itemsCollection.replaceOne(fltr, item, optns)).upsertedId;
             }
         }
         catch (err) {
@@ -84,15 +87,15 @@ class MongoStorage {
             await mongoClient.connect();
             const collection = mongoClient.db(dbName).collection(collectionName);
             const objectId = new ObjectId(id);
-            item = await collection.findOneAndDelete({_id: objectId});
-            //console.log(item);
+            item = await collection.findOneAndDelete({ _id: objectId });
+            console.log(item.value);
         }
         catch (err) {
             console.log(err);
         }
         finally {
             mongoClient.close();
-            return item;
+            return item.value;
         }
     }
 

@@ -1,7 +1,25 @@
+
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Home</title>
-    <meta name="description" content="The home page">
-    <meta name="author" content="BlackTwig">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <!-- Add styles --> 
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/modal.css">
+  <link rel="stylesheet" href="/stylesheets/loader.css">
+  <link rel="stylesheet" href="/stylesheets/notification.css">
+  <link rel="stylesheet" href="/stylesheets/pagination.css">
+ <!-- Load scripts --> 
+  <script src="/javascripts/common.js"></script>
+  <script src="/javascripts/notification.js"></script>
+  <script src="/javascripts/pagination.js"></script>
+  <script src="/javascripts/modal.js"></script>
+<script src="https://unpkg.com/mustache@latest"></script>
+
+  <title>Art Museums Catalogue</title>
+  <meta name="description" content="The Museums home page">
+  <meta name="author" content="BlackTwig">
 </head>

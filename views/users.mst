@@ -18,7 +18,7 @@
     <tr>
       {{#users}}
     <tr>
-      <td><a href="/users/{{_id}}">{{login}}</a></td>
+      <td><a href="/user.html?{{_id}}">{{login}}</a></td>
       <td>{{fullname}}</td>
       <td>{{registeredAt}}</td>
     </tr>
