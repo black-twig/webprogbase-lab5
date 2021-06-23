@@ -4,11 +4,12 @@ const museumRepository = new MuseumRepository();
 const MediaRepository = require('../repositories/mediaRepository');
 const mediaRepository = new MediaRepository(path.resolve(__dirname, '../data/media'));
 const Museum = require('../models/museum');
+const WsServer = require('../websocketserver');
 
 module.exports = {
     async getMuseumsListPage(req, res) {
         try {
-            res.status(200).render('museums',{});
+            res.status(200).render('museums', {});
         } catch (err) {
             console.log(err.message);
             res.sendStatus(500);
@@ -60,14 +61,14 @@ module.exports = {
         const newId = await museumRepository.addArtMuseum(new_museum);
         //console.log(newId);
         new_museum._id = newId;
-        if (new_museum)
-            {
-                wsServer.notifyAll("New Museum", new_museum.name, new_museum._id);
-                res.send(new_museum);
-                res.end();
-            }
-            else
-                res.sendStatus(500);
+        if (new_museum) {
+            let ws = require('../app.js');
+            ws.notifyAll("New Museum", new_museum.name, new_museum._id);
+            res.send(new_museum);
+            res.end();
+        }
+        else
+            res.sendStatus(500);
     },
 
     async deleteArtMuseum(req, res) {
@@ -77,15 +78,14 @@ module.exports = {
         else {
             const deletedMuseum = await museumRepository.deleteArtMuseum(req.params._id);
             console.log(deletedMuseum);
-            if (deletedMuseum)
-            {
+            if (deletedMuseum) {
                 res.send(deletedMuseum);
                 res.end();
             }
             else
                 res.sendStatus(404);
         }
-        
+
     },
 
     async updateArtMuseum(req, res) {

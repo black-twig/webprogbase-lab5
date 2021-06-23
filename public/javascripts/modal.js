@@ -1,7 +1,3 @@
-
-
-
-
 function showModal(htmlContent) {
 
     let modal = document.getElementById("museumInfoModal");

@@ -56,22 +56,14 @@ app.use((req, res) => {
     res.status(400).send({ message: "Error in route."});
 });
 
-// app.get('/users/:id', function (req, res) {
-//     const user = userRepository.getUserById(parseInt(req.params._id));
-//     res.render('user', { user });
-// });
-
-// app.listen(config.app.port, function() {
-//     console.log('Server is ready');
-// });
-
 //websocket server + http
 const server = http.createServer(app);
 //
 // … @todo setup app here
 //
 const WsServer = require('./websocketserver');
-global.wsServer = new WsServer(server);
+let wsServer = new WsServer(server);
+module.exports = wsServer;
 //
 // Note: now you can use wsServer in your web handlers 
 //       to send notifications to all connected websockets
